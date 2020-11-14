@@ -4,4 +4,8 @@ body{
     color: #484848;
     font-size: 14px;
     font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    min-height: calc(100vh - 60px);
+}
+.content{
+    min-height: calc(100vh - 70px - 62px);
 }

@@ -4,14 +4,10 @@ body{
     color: #484848;
     font-size: 14px;
     font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
-    position: relative;
+    /*min-height: calc(100vh - 60px);*/
 }
-body::after {
-    content: '';
-    display: block;
-    height: 60px; /* Set same as footer's height */
-  }
 .container{
     max-width: 1000px;
     margin: 30px auto 30px auto;
+    min-height: calc(100vh - 70px - 60px - 62px);
 }
