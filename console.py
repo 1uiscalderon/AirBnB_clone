@@ -76,7 +76,6 @@ class HBNBCommand(cmd.Cmd):
         tmp_key = split_line[0] + "." + split_line[1]
         if tmp_key in storage.all().keys():
             print(storage.all()[tmp_key])
-            storage.save()
         else:
             print("** no instance found **")
 
@@ -125,20 +124,24 @@ class HBNBCommand(cmd.Cmd):
         split_line = shlex.split(line)
         if len(split_line) == 0:
             print("** class name missing **")
-            return
+            return False
         try:
             eval(split_line[0])
         except Exception:
             print("** class doesn't exist **")
-            return
+            return False
         if len(split_line) < 2:
             print("** instance id missing **")
+            return False
         elif split_line[0] + "." + split_line[1] not in storage.all().keys():
             print("** no instance found **")
+            return False
         elif len(split_line) < 3:
             print("** attribute name missing **")
+            return False
         elif len(split_line) < 4:
             print("** value missing **")
+            return False
         else:
             if split_line[3][0] == "\"":
                 split_line[3] = split_line[3][1:-1]
@@ -163,6 +166,38 @@ class HBNBCommand(cmd.Cmd):
                 self.do_destroy(arguments)
             elif line_tmp[1] == "update":
                 self.do_update(arguments)
+                if "{" in line_tmp[2]:
+                    print("Holi")
+                else:
+                    self.do_update(arguments)
+                
+                """
+                arguments = command[1].split()
+                id_ = arguments[0].replace(",", "").replace("\"", "")
+                if "{" in arguments[2]:  # Work with dictionary
+                    for i in arguments:
+                        if id_ in i:
+                            continue
+                        if ":" in i:
+                            key_ = i.replace("{", "").replace("'", "").replace(
+                                ":", "").replace("\"", "")
+                            print("Key:", key_)
+                        else:
+                            i = i.replace("\"", "").replace(",", "").replace(
+                                "}", "")
+                            value_ = i.replace("\"", "").replace(",", "")\
+                                .replace("'", "")
+                            print("Value:", value_)
+                            # Update object with key and value
+                            if self.do_update(
+                                args[0] + " " + id_ + " " + key_ + " " + value_
+                            ) is False:
+                                return
+                else:  # Work without dictionary
+                    args_to_update = str(arguments).replace("\"", "").replace(
+                        ",", "").replace("[", "").replace("]", "").replace(
+                            "\'", "")
+                    self.do_update(args[0] + " " + args_to_update)"""
         else:
             print("*** Unknown syntax: {}".format(line))
 
